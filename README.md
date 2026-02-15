@@ -1,12 +1,11 @@
-# ❤️ Heart Disease Classification and Deployment using Streamlit
+# Heart Disease Classification App
 
 ## 👩‍🎓 Student Details
 
 - **Name:** Sakshi Priya  
-- **Roll No:** 2025AA05425  
+- **BITS ID:** 2025AA05425  
 - **Subject:** Machine Learning  
-- **Assignment:** Assignment 2 – Classification and Deployment  
-- **Program:** M.Tech  
+- **Assignment:** Assignment 2 – Classification and Deployment   
 
 ---
 
