@@ -1,19 +1,78 @@
-# ML Classification Project
+# ❤️ Heart Disease Classification and Deployment using Streamlit
 
-This project compares different classification models using a Kaggle dataset.
+## 👩‍🎓 Student Details
 
-a. Problem Statement
-    The objective of this project is to implement and compare multiple machine learning classification models on the Heart Disease dataset. The project demonstrates an end-to-end ML workflow including preprocessing, model training, evaluation using multiple performance metrics, and deployment through a Streamlit web application.
+- **Name:** Sakshi Priya  
+- **Roll No:** 2025AA05425  
+- **Subject:** Machine Learning  
+- **Assignment:** Assignment 2 – Classification and Deployment  
+- **Program:** M.Tech  
 
-b. Dataset Description
-    Dataset Name: Heart Disease Dataset
-    Source: Kaggle 
-    Number of Instances: (Enter from your notebook, e.g., 1025)
-    Number of Features: (Enter actual feature count excluding target)
-    Target Variable: target
-    Problem Type: Multiclass Classification
+---
 
-c. Model Comparison
+## 📌 Problem Statement
+
+The objective of this project is to implement and compare multiple machine learning classification models on a real-world classification dataset. The project involves preprocessing data using pipelines, training different classification models, evaluating their performance using multiple metrics, and deploying the models using Streamlit for interactive testing and evaluation.
+
+---
+
+## 📊 Dataset Description
+
+- **Dataset:** Heart Disease Dataset  
+- **Source:** Kaggle / UCI Repository  
+- **Problem Type:** Multiclass Classification  
+- **Target Variable:** `target` (represents severity of heart disease) 
+    0 - No Heart Disease
+    1 - Mild Heart Disease
+    2 - Moderate Heart Disease
+    3 - Severe Heart Disease
+    4 - Very Severe Heart Disease
+- **Number of Features:** 13 input features  
+- **Number of Instances:** 918  
+
+### Features include:
+- Age
+- Sex
+- Chest Pain Type
+- Resting Blood Pressure
+- Cholesterol
+- Fasting Blood Sugar
+- Resting ECG
+- Maximum Heart Rate
+- Exercise Induced Angina
+- Oldpeak
+- Slope
+- Number of Major Vessels
+- Thalassemia
+
+---
+
+## ⚙️ Preprocessing Steps
+
+The following preprocessing steps were applied using Scikit-learn pipelines:
+
+- Handling missing values using SimpleImputer
+- One-hot encoding for categorical features
+- Feature scaling using StandardScaler
+- Unified preprocessing using ColumnTransformer and Pipeline
+
+This ensured consistent preprocessing across all models.
+
+---
+
+## 🤖 Machine Learning Models Implemented
+
+The following classification models were implemented and compared:
+
+1. Logistic Regression  
+2. Decision Tree Classifier  
+3. K-Nearest Neighbors (KNN)  
+4. Naive Bayes (Gaussian)  
+5. Random Forest Classifier  
+6. XGBoost Classifier  
+
+---
+
 ## 📊 Model Performance Comparison
 
 | Model               | Accuracy | AUC Score | Precision | Recall   | F1 Score | MCC Score |
@@ -25,15 +84,56 @@ c. Model Comparison
 | Random Forest       | 0.618644 | 0.751571  | 0.244118  | 0.262857 | 0.253134 | 0.289985  |
 | XGBoost             | 0.601695 | 0.812970  | 0.244444  | 0.260536 | 0.252113 | 0.277401  |
 
+---
 
+## 🔎 Model Observations
 
-| Model                   | Key Observation                                                                                                                                                                                                         |
-| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Logistic Regression** | Achieved the highest AUC score (0.814) and tied highest accuracy (0.661). This indicates strong class   separation capability. The moderate MCC suggests balanced predictive power across classes.                        |
-| **Decision Tree**       | Showed relatively low accuracy (0.475) and low MCC (0.156), indicating weaker generalization and possible overfitting. Performance was inferior compared to other models.                                               |
-| **KNN**                 | Achieved the highest MCC score (0.373) and tied highest accuracy (0.661), indicating better balanced classification performance across all classes. Performed competitively despite lower AUC than Logistic Regression. |
-| **Naive Bayes**         | Recorded the lowest accuracy (0.347) and lowest F1 score (0.192), suggesting that the independence assumption did not hold well for this dataset. Overall performance was comparatively weak.                           |
-| **Random Forest**       | Delivered stable performance with good AUC (0.752) and moderate accuracy (0.619). However, it did not outperform Logistic Regression or KNN in this dataset.                                                            |
-| **XGBoost**             | Achieved high AUC (0.813), nearly equal to Logistic Regression, showing strong ranking ability. However, accuracy and MCC were slightly lower, indicating moderate classification consistency.                          |
+| Model               | Detailed Observation |
+|---------------------|---------------------|
+| Logistic Regression | Logistic Regression achieved highest accuracy scores (0.661) and the highest AUC score (0.814). This indicates strong class separation capability. The MCC score (0.343) suggests balanced predictions across classes. Overall, it showed strong and stable performance despite being a simple linear model. |
+| Decision Tree       | Decision Tree showed lower performance with an accuracy of 0.475 and MCC of 0.156. The lower AUC score indicates weak generalization capability. This suggests possible overfitting and reduced ability to handle complex patterns in the dataset. |
+| KNN                 | KNN achieved the highest MCC score (0.373) and tied highest accuracy (0.661), indicating balanced and reliable predictions across classes. Although its AUC score was lower than Logistic Regression, the higher MCC score shows better overall classification agreement. |
+| Naive Bayes         | Naive Bayes produced the lowest accuracy (0.347) and lowest F1 score (0.192), indicating weak predictive performance. This is likely due to the independence assumption, which does not hold well for correlated medical features. |
+| Random Forest       | Random Forest achieved moderate performance with accuracy of 0.619 and AUC score of 0.752. As an ensemble model, it reduced variance but did not outperform Logistic Regression or KNN in this dataset. |
+| XGBoost             | XGBoost achieved a high AUC score (0.813), nearly equal to Logistic Regression, showing strong ranking capability. However, its accuracy and MCC were slightly lower, indicating moderate classification consistency. |
 
+---
 
+## 🌐 Streamlit Application Features
+
+The deployed Streamlit application includes:
+
+- Upload test dataset (CSV)
+- Select classification model from dropdown
+- Display pre-calculated performance metrics
+- Display evaluation metrics on uploaded data
+- Classification report
+- Confusion matrix visualization
+- ROC Curve (Multiclass)
+- Interactive user interface
+
+---
+
+## 🚀 Deployment
+
+- **GitHub Repository:** https://github.com/priyasakshi/ml-classification-project  
+- **Streamlit App:** https://heart-disease-model-comparison.streamlit.app
+
+---
+
+## 📁 Project Structure
+
+ML_Assignment2/
+│
+├── app.py
+├── requirements.txt
+├── README.md
+│
+└── model/
+    ├── logistic.pkl
+    ├── decision_tree.pkl
+    ├── knn.pkl
+    ├── naive_bayes.pkl
+    ├── random_forest.pkl
+    ├── xgboost.pkl
+    └── test_data.csv
