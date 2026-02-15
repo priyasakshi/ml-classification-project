@@ -7,7 +7,63 @@ import numpy as np
 import time
 from sklearn.preprocessing import label_binarize
 from sklearn.metrics import roc_curve, auc
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, ConfusionMatrixDisplay
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, ConfusionMatrixDisplay, roc_auc_score, matthews_corrcoef
+
+# Multiclass AUC and MCC calculation
+def multiclass_metrics(y_true, y_pred, y_prob):
+    # Macro-average AUC (One-vs-Rest)
+    try:
+        auc_macro = roc_auc_score(y_true, y_prob, multi_class='ovr', average='macro')
+    except Exception as e:
+        auc_macro = f"AUC error: {e}"
+    # Multiclass MCC
+    mcc = matthews_corrcoef(y_true, y_pred)
+    print(f"Multiclass AUC (macro): {auc_macro}")
+    print(f"Multiclass MCC: {mcc:.4f}")
+
+# Common metrics calculation
+def calculate_metrics(y_true, y_pred, y_prob=None):
+    # Accuracy
+    accuracy = np.sum(y_true == y_pred) / len(y_true)
+
+    # Precision, Recall, F1 ( average for multiclass)
+    classes = np.unique(y_true)
+    precisions, recalls, f1s = [], [], []
+    for cls in classes:
+        tp = np.sum((y_pred == cls) & (y_true == cls))
+        fp = np.sum((y_pred == cls) & (y_true != cls))
+        fn = np.sum((y_pred != cls) & (y_true == cls))
+        precision = tp / (tp + fp) if (tp + fp) > 0 else 0
+        recall = tp / (tp + fn) if (tp + fn) > 0 else 0
+        f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
+        precisions.append(precision)
+        recalls.append(recall)
+        f1s.append(f1)
+    precision_macro = np.mean(precisions)
+    recall_macro = np.mean(recalls)
+    f1_macro = np.mean(f1s)
+
+    # MCC (Matthews Correlation Coefficient)
+    mcc = matthews_corrcoef(y_true, y_pred)
+
+   
+    print(f"Accuracy: {accuracy:.4f}")
+
+    # AUC Score
+    auc = None
+    if y_prob is not None:
+        try:
+            auc_score = roc_auc_score(y_true, y_prob, multi_class='ovr', average='macro')
+            print(f"Multiclass AUC Score (macro): {auc_score:.4f}")
+        except Exception as e:
+            print(f"Multiclass AUC Score error: {e}")
+
+    print(f"Precision (macro): {precision_macro:.4f}")
+    print(f"Recall (macro): {recall_macro:.4f}")
+    print(f"F1 Score (macro): {f1_macro:.4f}")
+    print(f"MCC Score: {mcc:.4f}")
+
+    return accuracy, auc_score, precision_macro, recall_macro, f1_macro, mcc
 
 # Load model metrics for display
 metrics_df = pd.read_csv("model_metrics.csv")
@@ -35,20 +91,6 @@ with open("data/heart_disease_test_data.csv", "rb") as file:
         mime="text/csv"
     )
 
-st.markdown("""
-### 📝 How to Use This App:
-1. Download the sample test dataset.
-2. Upload the CSV file using the sidebar.
-3. Select a model.
-4. View evaluation metrics and confusion matrix.
-""")
-
-
-# -----------------------------
-# Sidebar Section
-# -----------------------------
-st.sidebar.header("⚙️ Settings")
-
 # Load models
 model_option = st.selectbox(
     "Select Model",
@@ -73,8 +115,33 @@ model_paths = {
 
 model = joblib.load(model_paths[model_option])
 
+# -----------------------------
+# Sidebar Section
+# -----------------------------
+st.sidebar.header("⚙️ Settings")
 #File uploader
 uploaded_file = st.sidebar.file_uploader("Upload Test CSV", type=["csv"])
+
+st.sidebar.markdown("""
+                    
+---
+### 📝 How to Use This App:
+1. Download the sample test dataset.
+2. Upload the CSV file .
+3. Select a model.
+4. View evaluation metrics and confusion matrix.
+                    
+---
+### 👩‍🎓 Student Details
+
+**Name:** Sakshi Priya  
+**BITS Id:** 2025AA05425  
+**Subject:** Machine Learning  
+**Assignment:** ML_Assignment_2
+
+---
+""")
+
 
 # -----------------------------
 # Main Section
@@ -104,21 +171,25 @@ if uploaded_file is not None:
             y_prob = model.predict_proba(X_test)
 
         # Metrics
-        acc = accuracy_score(y_test, y_pred)
-        roc_auc_score_value = classification_report(y_test, y_pred, output_dict=True)['macro avg']['roc_auc'] if 'roc_auc' in classification_report(y_test, y_pred, output_dict=True)['macro avg'] else "N/A"
-        prec = classification_report(y_test, y_pred, output_dict=True)['macro avg']['precision']
-        rec = classification_report(y_test, y_pred, output_dict=True)['macro avg']['recall']
-        f1 = classification_report(y_test, y_pred, output_dict=True)['macro avg']['f1-score']
-        mcc = classification_report(y_test, y_pred, output_dict=True)['macro avg']['mcc'] if 'mcc' in classification_report(y_test, y_pred, output_dict=True)['macro avg'] else "N/A"
+        acc_lr, auc_lr, precision_lr, recall_lr, f1_lr, mcc_lr = calculate_metrics(y_test, y_pred, y_prob)   
+        # acc = accuracy_score(y_test, y_pred)
+        # roc_auc_score_value = classification_report(y_test, y_pred, output_dict=True)['macro avg']['roc_auc'] if 'roc_auc' in classification_report(y_test, y_pred, output_dict=True)['macro avg'] else "N/A"
+        # roc_auc_score_value = classification_report(y_test, y_pred, output_dict=True)['macro avg']['roc_auc'] if 'roc_auc' in classification_report(y_test, y_pred, output_dict=True)['macro avg'] else "N/A"
+        # prec = classification_report(y_test, y_pred, output_dict=True)['macro avg']['precision']
+        # rec = classification_report(y_test, y_pred, output_dict=True)['macro avg']['recall']
+        # f1 = classification_report(y_test, y_pred, output_dict=True)['macro avg']['f1-score']
+        # mcc = classification_report(y_test, y_pred, output_dict=True)['macro avg']['mcc'] if 'mcc' in classification_report(y_test, y_pred, output_dict=True)['macro avg'] else "N/A"
 
         st.subheader("📊 Evaluation Metrics")
 
-        col1, col2, col3, col4 = st.columns(4)
+        col1, col2, col3 = st.columns(3)
 
-        col1.metric("Accuracy", f"{acc:.3f}")
-        col2.metric("Precision (Macro)", f"{prec:.3f}")
-        col3.metric("Recall (Macro)", f"{rec:.3f}")
-        col4.metric("F1 Score (Macro)", f"{f1:.3f}")
+        col1.metric("Accuracy", f"{acc_lr:.3f}")
+        col2.metric("Precision (Macro)", f"{precision_lr:.3f}")
+        col3.metric("Recall (Macro)", f"{recall_lr:.3f}")
+        col1.metric("F1 Score (Macro)", f"{f1_lr:.3f}")
+        col2.metric("AUC Score (Macro)", f"{auc_lr:.3f}")
+        col3.metric("MCC Score", f"{mcc_lr:.3f}")
 
         # Classification Report
         st.subheader("📋 Classification Report")
