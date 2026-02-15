@@ -22,11 +22,11 @@ The objective of this project is to implement and compare multiple machine learn
 - **Source:** Kaggle / UCI Repository  
 - **Problem Type:** Multiclass Classification  
 - **Target Variable:** `target` (represents severity of heart disease) 
-    0 - No Heart Disease
-    1 - Mild Heart Disease
-    2 - Moderate Heart Disease
-    3 - Severe Heart Disease
-    4 - Very Severe Heart Disease
+  - 0 - No Heart Disease
+  - 1 - Mild Heart Disease
+  - 2 - Moderate Heart Disease
+  - 3 - Severe Heart Disease
+  - 4 - Very Severe Heart Disease
 - **Number of Features:** 13 input features  
 - **Number of Instances:** 918  
 
