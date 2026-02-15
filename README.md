@@ -51,7 +51,7 @@ The objective of this project is to implement and compare multiple machine learn
 
 The following preprocessing steps were applied using Scikit-learn pipelines:
 
-- Handling missing values using SimpleImputer
+- Handling missing/Nan values using SimpleImputer
 - One-hot encoding for categorical features
 - Feature scaling using StandardScaler
 - Unified preprocessing using ColumnTransformer and Pipeline
@@ -137,3 +137,23 @@ ML_Assignment2/
     ├── random_forest.pkl
     ├── xgboost.pkl
     └── test_data.csv
+
+---
+
+## Conclusion
+
+This project successfully demonstrates the implementation, evaluation, and deployment of multiple classification models using structured machine learning pipelines. Logistic Regression and KNN showed the best overall performance. Ensemble models such as Random Forest and XGBoost also performed well. Naive Bayes showed the weakest performance due to its assumptions.
+The Streamlit application provided an interactive interface to evaluate and compare models using real test data.
+
+---
+
+## Requirements
+
+Install dependencies using:   
+pip install -r requirements.txt
+
+---
+
+## Run Streamlit App Locally
+streamlit run app.py
+
