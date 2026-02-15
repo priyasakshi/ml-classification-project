@@ -10,13 +10,13 @@
 
 ---
 
-## 📌 Problem Statement
+## Problem Statement
 
 The objective of this project is to implement and compare multiple machine learning classification models on a real-world classification dataset. The project involves preprocessing data using pipelines, training different classification models, evaluating their performance using multiple metrics, and deploying the models using Streamlit for interactive testing and evaluation.
 
 ---
 
-## 📊 Dataset Description
+## Dataset Description
 
 - **Dataset:** Heart Disease Dataset  
 - **Source:** Kaggle / UCI Repository  
@@ -47,7 +47,7 @@ The objective of this project is to implement and compare multiple machine learn
 
 ---
 
-## ⚙️ Preprocessing Steps
+## Preprocessing Steps
 
 The following preprocessing steps were applied using Scikit-learn pipelines:
 
@@ -60,7 +60,7 @@ This ensured consistent preprocessing across all models.
 
 ---
 
-## 🤖 Machine Learning Models Implemented
+## Machine Learning Models Implemented
 
 The following classification models were implemented and compared:
 
@@ -73,7 +73,7 @@ The following classification models were implemented and compared:
 
 ---
 
-## 📊 Model Performance Comparison
+## Model Performance Comparison
 
 | Model               | Accuracy | AUC Score | Precision | Recall   | F1 Score | MCC Score |
 |---------------------|----------|-----------|-----------|----------|----------|-----------|
@@ -86,7 +86,7 @@ The following classification models were implemented and compared:
 
 ---
 
-## 🔎 Model Observations
+## Model Observations
 
 | Model               | Detailed Observation |
 |---------------------|---------------------|
@@ -99,7 +99,7 @@ The following classification models were implemented and compared:
 
 ---
 
-## 🌐 Streamlit Application Features
+## Streamlit Application Features
 
 The deployed Streamlit application includes:
 
@@ -118,25 +118,6 @@ The deployed Streamlit application includes:
 
 - **GitHub Repository:** https://github.com/priyasakshi/ml-classification-project  
 - **Streamlit App:** https://heart-disease-model-comparison.streamlit.app
-
----
-
-## 📁 Project Structure
-
-ML_Assignment2/
-│
-├── app.py
-├── requirements.txt
-├── README.md
-│
-└── model/
-    ├── logistic.pkl
-    ├── decision_tree.pkl
-    ├── knn.pkl
-    ├── naive_bayes.pkl
-    ├── random_forest.pkl
-    ├── xgboost.pkl
-    └── test_data.csv
 
 ---
 
