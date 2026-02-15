@@ -105,12 +105,12 @@ model_option = st.selectbox(
 )
 
 model_paths = {
-    "Logistic Regression": "models/logistic.pkl",
-    "Decision Tree": "models/decision_tree.pkl",
-    "KNN": "models/knn.pkl",
-    "Naive Bayes": "models/naive_bayes.pkl",
-    "Random Forest": "models/random_forest.pkl",
-    "XGBoost": "models/xgboost.pkl"
+    "Logistic Regression": "model/logistic.pkl",
+    "Decision Tree": "model/decision_tree.pkl",
+    "KNN": "model/knn.pkl",
+    "Naive Bayes": "model/naive_bayes.pkl",
+    "Random Forest": "model/random_forest.pkl",
+    "XGBoost": "model/xgboost.pkl"
 }
 
 model = joblib.load(model_paths[model_option])
